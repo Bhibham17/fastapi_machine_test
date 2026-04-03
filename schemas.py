@@ -7,7 +7,10 @@ class CategoryBase(BaseModel):
     class Config:
         orm_mode = True
 
-
+class ProductCreate(BaseModel):
+    name: str
+    category_id: int
+    
 class ProductBase(BaseModel):
     id: int
     name: str

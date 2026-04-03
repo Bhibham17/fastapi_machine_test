@@ -16,4 +16,5 @@ class Product(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String)
     category_id = Column(Integer, ForeignKey("categories.id"))
-    category = relationship("Category", back_populates="products")
+
+    category = relationship("Category")

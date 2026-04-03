@@ -20,7 +20,7 @@ def create_category(category: schemas.CategoryBase, db: Session = Depends(get_db
     return crud.create_category(db, category.name)
 
 @app.post("/products")
-def create_product(product: schemas.ProductBase, db: Session = Depends(get_db)):
+def create_product(product: schemas.ProductCreate, db: Session = Depends(get_db)):
     return crud.create_product(db, product.name, product.category_id)
 
 
@@ -40,7 +40,7 @@ def get_products(page: int = 1, limit: int = 10, db: Session = Depends(get_db)):
     return products
 
 
-@app.get("/products/{id}", response_model=schemas.ProductBase)
+@app.get("/products/{id}")
 def get_product(id: int, db: Session = Depends(get_db)):
     product = db.query(models.Product).filter(models.Product.id == id).first()
 
@@ -50,7 +50,7 @@ def get_product(id: int, db: Session = Depends(get_db)):
     return product
 
 @app.put("/products/{id}")
-def update_product(id: int, product: schemas.ProductBase, db: Session = Depends(get_db)):
+def update_product(id: int, product: schemas.ProductCreate, db: Session = Depends(get_db)):
     db_product = db.query(models.Product).filter(models.Product.id == id).first()
     db_product.name = product.name
     db_product.category_id = product.category_id
